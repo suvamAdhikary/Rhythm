@@ -8,29 +8,12 @@ import {
 } 
 from "./actionType";
 
-// const artistToken = JSON.parse(localStorage.getItem('rhythm-artist-token'));
-
-// let artistData;
-
-// const loadArtist = async (artistId) => {
-
-//     const { data } = await axios.post
-
-// }
-
-// const initState = {
-//     artist: {
-//         loading: false,
-//         data: {},
-//         error: false,
-//     }
-// }
 
 const initState = {
     artist: {
         loading: false,
         data: {},
-        token: "",
+        token: null,
         error: false,
     }
 }
@@ -38,6 +21,7 @@ const initState = {
 export const artistReducer = (state = initState, {type, payload}) => {
 
     switch(type) {
+        // ARTIST LOGIN
         case LOG_ARTIST_LOADING:
             return {
                 ...state,
@@ -56,6 +40,33 @@ export const artistReducer = (state = initState, {type, payload}) => {
                 }
             }
         case LOG_ARTIST_FAILURE:
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    error: true,
+                }
+            }
+
+        // ARTIST UPDATE
+        case UPDATE_ARTIST_LOADING:
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    loading: true,
+                }
+            }
+        case UPDATE_ARTIST_SUCCESS:
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    loading: false,
+                    data: payload,
+                }
+            }
+        case UPDATE_ARTIST_FAILURE:
             return {
                 ...state,
                 artist: {
