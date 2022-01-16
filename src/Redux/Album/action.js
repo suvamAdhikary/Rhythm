@@ -1,4 +1,4 @@
-import { changeAlbum, loadAllAlbums, newAlbum, rmAlbum } from "../../Utils/Axios";
+import { aAlbum, changeAlbum, loadAllAlbums, newAlbum, rmAlbum } from "../../Utils/Axios";
 import {
     GET_ALLALBUMS_LOADING,
     GET_ALLALBUMS_SUCCESS,
@@ -71,6 +71,24 @@ export const addAlbum = (payload) => async (dispatch) => {
     catch (err) {
 
         dispatch(addAlbumFailure(err));
+    }
+}
+
+
+export const getAlbum = (payload) => async (dispatch) => {
+
+    dispatch(getAlbumLoading());
+
+    try {
+
+        const { data } = await aAlbum(payload);
+
+        dispatch(getAlbumSuccess(data));
+
+    }
+    catch (err) {
+
+        dispatch(getAlbumFailure(err));
     }
 }
 

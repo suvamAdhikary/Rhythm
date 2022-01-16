@@ -1,5 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import PrivateRoutes from "../Components/PrivateRoutes";
+import Album from "./Album/Album";
+import AlbumDetails from "./AlbumDetails/AlbumDetails";
 
 
 export default function Routes(){
@@ -17,7 +19,11 @@ export default function Routes(){
             </Route>
 
             <Route path="/albums" >
-                <h1>Albums</h1>
+                <Album />
+            </Route>
+
+            <Route path="/album/:id" >
+                <AlbumDetails />
             </Route>
 
             <Route path="/songs" >
