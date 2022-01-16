@@ -30,7 +30,11 @@ const AlbumDetails = () => {
 
     }, [albumId, dispatch])
 
-    return (
+    return loading ?
+        <h1>LOADING ...</h1> :
+        error ?
+        <h1>SOMETHING WENT WRONG</h1> :
+    (
         <>
             <Wrapper>
                 <h1>{album?.name}</h1>

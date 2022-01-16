@@ -1,13 +1,23 @@
 import { Route, Switch } from "react-router-dom";
+import styled from "styled-components";
 import PrivateRoutes from "../Components/PrivateRoutes";
 import Album from "./Album/Album";
 import AlbumDetails from "./AlbumDetails/AlbumDetails";
+import Artist from "./Artist/Artist";
+import Login from "./Login/Login";
+import Header from "./Workshop/Components/Header";
+import Workshop from "./Workshop/Workshop";
+
+
+const Wrapper = styled.div``;
 
 
 export default function Routes(){
 
     return (
     <>
+    <Wrapper>
+        <Header />
         <Switch>
 
             <Route path="/" exact >
@@ -15,7 +25,7 @@ export default function Routes(){
             </Route>
 
             <Route path="/login" >
-                <h1>Login</h1>
+                <Login />
             </Route>
 
             <Route path="/albums" >
@@ -30,8 +40,12 @@ export default function Routes(){
                 <h1>Songs</h1>
             </Route>
             
-            <PrivateRoutes path="artist">
-                <h1>Artist</h1>
+            <PrivateRoutes path="/artist" exact>
+                <Artist />
+            </PrivateRoutes>
+
+            <PrivateRoutes path="/artist/:id" >
+                <Workshop />
             </PrivateRoutes>
 
             <Route path="/testing" >
@@ -44,6 +58,7 @@ export default function Routes(){
             </Route>
 
         </Switch>
+    </Wrapper>
     </>
     )
 }
