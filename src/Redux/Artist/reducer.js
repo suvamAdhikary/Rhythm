@@ -1,3 +1,4 @@
+import { loadData, saveData } from "../../Utils/localStorage";
 import {
     LOG_ARTIST_SUCCESS,
     LOG_ARTIST_FAILURE,
@@ -9,11 +10,13 @@ import {
 from "./actionType";
 
 
+let artistKey = loadData('rhythm-artist-token');
+
 const initState = {
     artist: {
         loading: false,
         data: {},
-        token: null,
+        token: artistKey,
         error: false,
     }
 }
@@ -31,12 +34,15 @@ export const artistReducer = (state = initState, {type, payload}) => {
                 }
             }
         case LOG_ARTIST_SUCCESS:
+            saveData('rhythm-artist-token', payload.token);
+            saveData('rhythm-artist-id', payload.artist._id);
             return {
                 ...state,
                 artist: {
                     ...state.artist,
                     loading: false,
                     token: payload.token,
+                    data: payload.artist,
                 }
             }
         case LOG_ARTIST_FAILURE:
