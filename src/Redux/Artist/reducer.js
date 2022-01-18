@@ -25,7 +25,7 @@ const initState = {
 }
 
 export const artistReducer = (state = initState, {type, payload}) => {
-console.log("in reducer", type);
+
     switch(type) {
         // ARTIST LOGIN
         case LOG_ARTIST_LOADING:
@@ -86,7 +86,7 @@ console.log("in reducer", type);
 
         // LOGOUT
         case LOGOUT_ARTIST_LOADING:
-            console.log("In reducer");
+
             return {
                 ...state,
                 artist: {
@@ -98,7 +98,7 @@ console.log("in reducer", type);
             saveData('rhythm-artist-token', null);
             saveData('rhythm-artist-id', null);
             artistKey = loadData('rhythm-artist-token');
-            console.log(artistKey);
+
             return {
                 ...state,
                 artist: {

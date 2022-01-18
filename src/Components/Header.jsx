@@ -49,7 +49,6 @@ const Header = () => {
 
     }, [token])
 
-    console.log(token, logged);
     return (
         <>
             <Wrapper>

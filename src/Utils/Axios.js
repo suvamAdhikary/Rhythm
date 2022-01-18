@@ -15,7 +15,7 @@ export const LoginArtist = (payload) => {
 
 
 export const updateArtistData = (id, payload) => {
-console.log(id, payload);
+
     return axios.patch(`https://rhythm-server.herokuapp.com/artists/${id}`, payload);
 }
 
