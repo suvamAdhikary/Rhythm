@@ -28,7 +28,7 @@ export default function Routes(){
                 <Login />
             </Route>
 
-            <Route path="/albums" >
+            <Route path="/albums" exact>
                 <Album />
             </Route>
 

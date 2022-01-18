@@ -1,5 +1,6 @@
 {
   "name": "rhythm_client",
+  "proxy": "https://rhythm-server.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
