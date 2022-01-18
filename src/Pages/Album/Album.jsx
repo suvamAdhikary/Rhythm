@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getAllAlbums } from "../../Redux/Album/action";
 import { getAllGenres } from "../../Redux/Genre/action";
+import { debounceAlbums } from "../../Utils/Axios";
 import useQuery from "../../Utils/useQuery";
 
 const Wrapper = styled.main`
@@ -75,6 +76,8 @@ const Album = () => {
   const [queryGenre, setQueryGenre] = useState([]);
   const [querySort, setQuerySort] = useState("");
 
+  var timerId;
+
   let history = useHistory();
   let query = useQuery();
 
@@ -94,6 +97,7 @@ const Album = () => {
   const {
     loading,
     data: { data, pages },
+    // debounced,
     error,
   } = useSelector((store) => store?.album?.albums);
 
@@ -101,7 +105,7 @@ const Album = () => {
   const genre = useSelector((store) => store?.genre?.genres);
 
   const dispatch = useDispatch();
-
+// console.log(debounced);
   // console.log({ loading, data, error, pages, genre, query });
 
   // Genre Filter Handler
@@ -190,10 +194,27 @@ const Album = () => {
       setSearchRes([]);
       return;
     }
-    let albums = data;
-    albums = albums.filter((el) => el.name.indexOf(key) !== -1);
-    console.log(albums, "check");
-    if (albums.length > 0) setSearchRes(albums);
+    // let albums = [];
+    // albums = albums.filter((el) => el.name.indexOf(key) !== -1);
+    // console.log(albums, "check");
+    
+    if(timerId){
+      clearTimeout(timerId)
+    }
+
+    timerId = setTimeout(() => {
+      console.log("key", key);
+      debounceAlbums(key)
+        .then(({data : {albums}}) => {
+          setSearchRes(albums);
+        })
+      // setSearchRes(albums);
+      // dispatch(getDebounced(key));
+    }, 3000)
+
+    // clearTimeout(timerId);
+
+    // if (albums.length > 0) setSearchRes(albums);
   };
 
   // UseEffect
@@ -211,7 +232,7 @@ const Album = () => {
       // setQuerySort(sortFormQuery);
     }, 500);
   }, [dispatch, pages, page, searchRes, queryGenre, querySort, genreFromQuery, pageFromQuery, sortFormQuery]);
-
+  // console.log(debounced?.data);
   return (
     <>
       <Wrapper>
@@ -227,7 +248,7 @@ const Album = () => {
                 />
                 <button>SEARCH</button>
               </div>
-              {searchRes.length > 0 && (
+              {searchRes?.length > 0 && (
                 <section>
                   {searchRes?.map((el, i) => (
                     <Link to={`/album/${el?._id}`} key={`${el?._id}-${i}`}>

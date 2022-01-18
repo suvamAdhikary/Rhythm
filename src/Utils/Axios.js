@@ -38,6 +38,11 @@ export const aAlbum = (id) => {
     return axios.get(`https://rhythm-server.herokuapp.com/albums/${id}`);
 }
 
+export const debounceAlbums = (payload) => {
+    
+    return axios.get(`https://rhythm-server.herokuapp.com/albums/api/search?q=${payload}`);
+}
+
 export const changeAlbum = (id, payload) => {
 
     return axios.patch(`https://rhythm-server.herokuapp.com/albums/${id}`, payload);
