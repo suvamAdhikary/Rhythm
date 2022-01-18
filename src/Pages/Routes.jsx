@@ -5,7 +5,7 @@ import Album from "./Album/Album";
 import AlbumDetails from "./AlbumDetails/AlbumDetails";
 import Artist from "./Artist/Artist";
 import Login from "./Login/Login";
-import Header from "./Workshop/Components/Header";
+import Header from "../Components/Header";
 import Workshop from "./Workshop/Workshop";
 
 
