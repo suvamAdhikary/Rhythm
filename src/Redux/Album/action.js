@@ -40,11 +40,11 @@ export const deleteAlbumFailure = (payload) => ({ type: DELETE_ALBUM_FAILURE, pa
 
 
 export const getAllAlbums = (payload) => async (dispatch) => {
-
+    
     dispatch(getAllAlbumsLoading());
-
+    
     try {
-
+        
         const { data } = await loadAllAlbums(payload);
 
         dispatch(getAllAlbumsSuccess(data));
@@ -76,7 +76,6 @@ export const addAlbum = (payload) => async (dispatch) => {
 
 
 export const getAlbum = (payload) => async (dispatch) => {
-
     dispatch(getAlbumLoading());
 
     try {

@@ -2,12 +2,14 @@ import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import { albumReducer } from "./Album/reducer";
 import { artistReducer } from "./Artist/reducer";
+import { genreReducer } from "./Genre/reducer";
 import { songReducer } from "./Song/reducer";
 
 const rootReducer = combineReducers({
     artist: artistReducer,
     album: albumReducer,
-    song: songReducer
+    song: songReducer,
+    genre: genreReducer,
 });
 
 const composeEnhancers = (

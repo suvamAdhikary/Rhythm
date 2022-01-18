@@ -23,9 +23,9 @@ export const updateArtistData = (id, payload) => {
 
 // ALBUM
 
-export const loadAllAlbums = (page) => {
+export const loadAllAlbums = ({genres, page, sort}) => {
 
-    return axios.get(`https://rhythm-server.herokuapp.com/albums?page${page || 1}`);
+    return axios.get(`https://rhythm-server.herokuapp.com/albums?Genre=${genres || ""}&page=${page || 1}&Sort=${sort || ""}`);
 }
 
 export const newAlbum = (payload) => {
@@ -54,7 +54,7 @@ export const rmAlbum = (id) => {
 
 export const loadAllSongs = (page) => {
 
-    return axios.get(`https://rhythm-server.herokuapp.com/songs?page${page || 1}`);
+    return axios.get(`https://rhythm-server.herokuapp.com/songs?page=${page || 1}`);
 }
 
 export const newSong = (payload) => {
@@ -75,4 +75,33 @@ export const changeSong = (id, payload) => {
 export const rmSong = (id) => {
 
     return axios.delete(`https://rhythm-server.herokuapp.com/songs/${id}`);
+}
+
+
+
+// GENRE
+
+export const loadAllGenres = () => {
+
+    return axios.get(`https://rhythm-server.herokuapp.com/genres`);
+}
+
+export const newGenre = (payload) => {
+
+    return axios.post(`https://rhythm-server.herokuapp.com/genres`, payload);
+}
+
+export const aGenre = (id) => {
+
+    return axios.get(`https://rhythm-server.herokuapp.com/genres/${id}`);
+}
+
+export const changeGenre = (id, payload) => {
+
+    return axios.patch(`https://rhythm-server.herokuapp.com/genres/${id}`, payload);
+}
+
+export const rmGenre = (id) => {
+
+    return axios.delete(`https://rhythm-server.herokuapp.com/genres/${id}`);
 }

@@ -1,4 +1,4 @@
-import { changeSong, loadAllSongs, newSong, rmSong } from "../../Utils/Axios";
+import { aSong, changeSong, loadAllSongs, newSong, rmSong } from "../../Utils/Axios";
 import {
     GET_ALLSONGS_LOADING,
     GET_ALLSONGS_SUCCESS,
@@ -70,6 +70,24 @@ export const addSong = (payload) => async (dispatch) => {
     catch (err) {
 
         dispatch(addSongFailure(err));
+    }
+}
+
+
+export const getSong = (payload) => async (dispatch) => {
+
+    dispatch(getSongLoading());
+
+    try {
+
+        const { data } = await aSong(payload);
+
+        dispatch(getSongSuccess(data));
+
+    }
+    catch (err) {
+
+        dispatch(getSongFailure(err));
     }
 }
 
