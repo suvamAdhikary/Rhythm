@@ -13,7 +13,10 @@ import {
     UPDATE_ALBUM_FAILURE,
     DELETE_ALBUM_LOADING,
     DELETE_ALBUM_SUCCESS,
-    DELETE_ALBUM_FAILURE
+    DELETE_ALBUM_FAILURE,
+    // DEBOUNCE_ALBUMS_LOADING,
+    // DEBOUNCE_ALBUMS_SUCCESS,
+    // DEBOUNCE_ALBUMS_FAILURE
 }
 from "./actionType";
 
@@ -23,6 +26,11 @@ const initState = {
         loading: false,
         data: {},
         album: {},
+        // debounced: {
+        //     loading: false,
+        //     data: [],
+        //     error: false,
+        // },
         error: false,
     }
 }
@@ -164,6 +172,42 @@ export const albumReducer = (state = initState, {type, payload}) => {
                     error: true,
                 }
             }
+
+        // DEBOUNCE
+        // case DEBOUNCE_ALBUMS_LOADING:
+        //     return {
+        //         ...state,
+        //         albums: {
+        //             ...state.albums,
+        //             debounced: {
+        //                 ...state.albums.debounced,
+        //                 loading: true,
+        //             }
+        //         }
+        //     }
+        // case DEBOUNCE_ALBUMS_SUCCESS:
+        //     return {
+        //         ...state,
+        //         albums: {
+        //             ...state.albums,
+        //             debounced: {
+        //                 ...state.albums.debounced,
+        //                 loading: true,
+        //                 data: payload,
+        //             }
+        //         }
+        //     }
+        // case DEBOUNCE_ALBUMS_FAILURE:
+        //     return {
+        //         ...state,
+        //         albums: {
+        //             ...state.albums,
+        //             debounced: {
+        //                 ...state.albums.debounced,
+        //                 error: true,
+        //             }
+        //         }
+        //     }
 
     
         default:

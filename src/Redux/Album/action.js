@@ -14,7 +14,10 @@ import {
     UPDATE_ALBUM_FAILURE,
     DELETE_ALBUM_LOADING,
     DELETE_ALBUM_SUCCESS,
-    DELETE_ALBUM_FAILURE
+    DELETE_ALBUM_FAILURE,
+    DEBOUNCE_ALBUMS_LOADING,
+    DEBOUNCE_ALBUMS_SUCCESS,
+    DEBOUNCE_ALBUMS_FAILURE
 }
 from "./actionType";
 
@@ -37,6 +40,10 @@ export const updateAlbumFailure = (payload) => ({ type: UPDATE_ALBUM_FAILURE, pa
 export const deleteAlbumLoading = () => ({ type: DELETE_ALBUM_LOADING });
 export const deleteAlbumSuccess = (payload) => ({ type: DELETE_ALBUM_SUCCESS, payload});
 export const deleteAlbumFailure = (payload) => ({ type: DELETE_ALBUM_FAILURE, payload});
+
+export const debounceAlbumsLoading = () => ({ type: DEBOUNCE_ALBUMS_LOADING });
+export const debounceAlbumsSuccess = (payload) => ({ type: DEBOUNCE_ALBUMS_SUCCESS, payload});
+export const debounceAlbumsFailure = (payload) => ({ type: DEBOUNCE_ALBUMS_FAILURE, payload});
 
 
 export const getAllAlbums = (payload) => async (dispatch) => {
@@ -126,3 +133,19 @@ export const deleteAlbum = (payload) => async (dispatch) => {
         dispatch(deleteAlbumFailure(err));
     }
 }
+
+// export const getDebounced = (payload) => async (dispatch) => {
+//     dispatch(debounceAlbumsLoading());
+
+//     try {
+
+//         const { data: {albums} } = await debounceAlbums(payload);
+
+//         dispatch(debounceAlbumsSuccess(albums));
+
+//     }
+//     catch (err) {
+
+//         dispatch(debounceAlbumsFailure(err));
+//     }
+// }
