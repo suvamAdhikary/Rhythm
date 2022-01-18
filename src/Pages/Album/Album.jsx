@@ -210,7 +210,7 @@ const Album = () => {
         })
       // setSearchRes(albums);
       // dispatch(getDebounced(key));
-    }, 3000)
+    }, 500)
 
     // clearTimeout(timerId);
 

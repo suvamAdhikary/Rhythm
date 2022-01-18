@@ -1,13 +1,27 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
+import { logoutArtist } from "../Redux/Artist/action";
 
 
 const Wrapper = styled.header`
 
+    >nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1%;
+        
+        > a, > p {
+            cursor: pointer;
+            text-decoration: none;
+            color: #000;
+        }
+    }
 `;
 
 const Header = () => {
@@ -16,6 +30,14 @@ const Header = () => {
 
     const { token } = useSelector((store) => store?.artist?.artist);
 
+    const dispatch = useDispatch();
+
+    const history = useHistory();
+
+    const handleLogout = () => {
+        dispatch(logoutArtist());
+        history.push('/');
+    }
 
     useEffect(() => {
 
@@ -27,7 +49,7 @@ const Header = () => {
 
     }, [token])
 
-
+    console.log(token, logged);
     return (
         <>
             <Wrapper>
@@ -40,9 +62,19 @@ const Header = () => {
                         ALBUMS
                     </Link>
 
-                    <Link to="/login">
-                        ARTIST LOGIN
-                    </Link>
+                    {
+                        token === null?
+
+                        (<Link to="/login">
+                            ARTIST LOGIN
+                        </Link>)
+
+                        :
+
+                        (<p to="/"  onClick={handleLogout}>
+                            LOGOUT
+                        </p>)
+                    }
 
                     {
                         logged 

@@ -5,7 +5,10 @@ import {
     LOG_ARTIST_LOADING,
     UPDATE_ARTIST_LOADING,
     UPDATE_ARTIST_SUCCESS,
-    UPDATE_ARTIST_FAILURE
+    UPDATE_ARTIST_FAILURE,
+    LOGOUT_ARTIST_LOADING,
+    LOGOUT_ARTIST_SUCCESS,
+    LOGOUT_ARTIST_FAILURE
 } 
 from "./actionType";
 
@@ -22,7 +25,7 @@ const initState = {
 }
 
 export const artistReducer = (state = initState, {type, payload}) => {
-
+console.log("in reducer", type);
     switch(type) {
         // ARTIST LOGIN
         case LOG_ARTIST_LOADING:
@@ -80,6 +83,41 @@ export const artistReducer = (state = initState, {type, payload}) => {
                     error: true,
                 }
             }
+
+        // LOGOUT
+        case LOGOUT_ARTIST_LOADING:
+            console.log("In reducer");
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    loading: true,
+                }
+            }
+        case LOGOUT_ARTIST_SUCCESS:
+            saveData('rhythm-artist-token', null);
+            saveData('rhythm-artist-id', null);
+            artistKey = loadData('rhythm-artist-token');
+            console.log(artistKey);
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    loading: false,
+                    token: artistKey,
+                    data: {},
+                }
+            }
+        case LOGOUT_ARTIST_FAILURE:
+            console.log("fail", payload);
+            return {
+                ...state,
+                artist: {
+                    ...state.artist,
+                    error: false,
+                }
+            }
+        
 
 
         default:
