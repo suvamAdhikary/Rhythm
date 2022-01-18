@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { logArtist, logoutArtist } from "../../Redux/Artist/action";
+import { logArtist } from "../../Redux/Artist/action";
 
 
 const Wrapper = styled.main`

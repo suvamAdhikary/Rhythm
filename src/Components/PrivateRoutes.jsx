@@ -5,7 +5,7 @@ import { Redirect, Route } from "react-router-dom";
 export default function PrivateRoutes({ children, path, push }){
 
     const { token } = useSelector((store) => store?.artist?.artist);
-   console.log(token); 
+
     if(token === null || token === undefined) {
         return <Redirect to='/' push={push}/>;
     }

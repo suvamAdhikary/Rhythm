@@ -63,7 +63,7 @@ export const updateArtist = ({id, payload}) => async (dispatch) => {
 export const logoutArtist = () => async (dispatch) => {
 
     dispatch(logoutArtistLoading());
-console.log("in logout");
+
     try{
 
         dispatch(logoutArtistSuccess());

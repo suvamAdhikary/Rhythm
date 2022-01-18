@@ -32,7 +32,8 @@ export const GlobalStyles = createGlobalStyle`
       height: auto;
     } */
     a, a:visited, a:hover {
-      text-decoration: none;
+      text-decoration: none !important;
+      color: #000;
       /* font-family: 'Roboto', sans-serif; */
       font-family: roboto, sans-serif;
     }

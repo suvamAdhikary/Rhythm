@@ -64,7 +64,17 @@ const Wrapper = styled.main`
             }
           }
         }
+
+        .album__box--genres {
+          display: flex;
+          gap: 5px;
+        }
       }
+    }
+
+    .album__text {
+      text-decoration: none !important;
+      color: black;
     }
   }
 `;
@@ -81,10 +91,10 @@ const Album = () => {
   let history = useHistory();
   let query = useQuery();
 
-  let genreFromQuery = query?.get('Genre');
+  let genreFromQuery = query?.get("Genre");
   // let genreFromQueryArray = query?.get('Genre').split('%0D');
-  let sortFormQuery = query?.get('Sort');
-  let pageFromQuery = query?.get('page');
+  let sortFormQuery = query?.get("Sort");
+  let pageFromQuery = query?.get("page");
   // query = query.slice(7).trim().split(/[&]+/);
 
   // FETCH ALBUM DATA
@@ -105,7 +115,7 @@ const Album = () => {
   const genre = useSelector((store) => store?.genre?.genres);
 
   const dispatch = useDispatch();
-// console.log(debounced);
+  // console.log(debounced);
   // console.log({ loading, data, error, pages, genre, query });
 
   // Genre Filter Handler
@@ -115,69 +125,74 @@ const Album = () => {
     if (!set.has(id)) {
       setQueryGenre([...queryGenre, id]);
 
-      if(querySort !== ""){
-        return history.push(`?Genre=${[...set, id].join('%0N')}&page=${1}&Sort=${querySort}`);
+      if (querySort !== "") {
+        return history.push(
+          `?Genre=${[...set, id].join("%0N")}&page=${1}&Sort=${querySort}`
+        );
       } else {
-        return history.push(`?Genre=${[...set, id].join('%0N')}&page=${1}`);
+        return history.push(`?Genre=${[...set, id].join("%0N")}&page=${1}`);
       }
-      
     } else {
       set.delete(id);
       setQueryGenre([...set]);
-      if(set.size < 1){
-        if(querySort === ""){
+      if (set.size < 1) {
+        if (querySort === "") {
           return history.push(`/albums?page=${1}`);
         } else {
           return history.push(`?page=${1}&Sort=${querySort}`);
         }
       } else {
-        if(querySort !== ""){
-          return history.push(`?Genre=${[...set].join('%0N')}&page=${1}&Sort=${querySort}`);
+        if (querySort !== "") {
+          return history.push(
+            `?Genre=${[...set].join("%0N")}&page=${1}&Sort=${querySort}`
+          );
         } else {
-          return history.push(`?Genre=${[...set].join('%0N')}&page=${1}`);
+          return history.push(`?Genre=${[...set].join("%0N")}&page=${1}`);
         }
       }
     }
-
   };
 
   // Year Sort Handler
   const handleYearSorting = (mode) => {
     setQuerySort(mode);
     setPage(1);
-    if (mode === ""){
-
-      if(queryGenre.length < 1){
+    if (mode === "") {
+      if (queryGenre.length < 1) {
         return history.push(`/albums?page=${1}`);
       } else {
-        return history.push(`?Genre=${queryGenre.join('%0N')}&page=${1}`);
+        return history.push(`?Genre=${queryGenre.join("%0N")}&page=${1}`);
       }
     }
 
-    if(queryGenre < 1){
+    if (queryGenre < 1) {
       return history.push(`?page=${1}&Sort=${mode}`);
     } else {
-      return history.push(`?Genre=${queryGenre.join('%0N')}&page=${1}&Sort=${mode}`);
+      return history.push(
+        `?Genre=${queryGenre.join("%0N")}&page=${1}&Sort=${mode}`
+      );
     }
   };
 
   const pageHandler = (p) => {
     setPage(p);
     console.log(p, "frm page hndl");
-    if(queryGenre.length > 0){
-      if(querySort === ""){
-        return history.push(`?Genre=${queryGenre.join('%0N')}&page=${p}`);
+    if (queryGenre.length > 0) {
+      if (querySort === "") {
+        return history.push(`?Genre=${queryGenre.join("%0N")}&page=${p}`);
       } else {
-        return history.push(`?Genre=${queryGenre.join('%0N')}&page=${p}&Sort=${querySort}`);
+        return history.push(
+          `?Genre=${queryGenre.join("%0N")}&page=${p}&Sort=${querySort}`
+        );
       }
     } else {
-      if(querySort === ""){
+      if (querySort === "") {
         return history.push(`?page=${p}`);
       } else {
         return history.push(`?page=${p}&Sort=${querySort}`);
       }
     }
-  }
+  };
 
   // Pagination Function
   const handlePageNumbers = (no) => {
@@ -197,20 +212,18 @@ const Album = () => {
     // let albums = [];
     // albums = albums.filter((el) => el.name.indexOf(key) !== -1);
     // console.log(albums, "check");
-    
-    if(timerId){
-      clearTimeout(timerId)
+
+    if (timerId) {
+      clearTimeout(timerId);
     }
 
     timerId = setTimeout(() => {
-      console.log("key", key);
-      debounceAlbums(key)
-        .then(({data : {albums}}) => {
-          setSearchRes(albums);
-        })
+      debounceAlbums(key).then(({ data: { albums } }) => {
+        setSearchRes(albums);
+      });
       // setSearchRes(albums);
       // dispatch(getDebounced(key));
-    }, 500)
+    }, 500);
 
     // clearTimeout(timerId);
 
@@ -220,18 +233,31 @@ const Album = () => {
   // UseEffect
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getAllAlbums( {genres : genreFromQuery, page: pageFromQuery, sort:sortFormQuery}))
-        .then(() => {
-
-          handlePageNumbers(pages);
+      dispatch(
+        getAllAlbums({
+          genres: genreFromQuery,
+          page: pageFromQuery,
+          sort: sortFormQuery,
         })
-
+      ).then(() => {
+        handlePageNumbers(pages);
+      });
 
       dispatch(getAllGenres());
       // setQueryGenre(genreFromQueryArray);
       // setQuerySort(sortFormQuery);
     }, 500);
-  }, [dispatch, pages, page, searchRes, queryGenre, querySort, genreFromQuery, pageFromQuery, sortFormQuery]);
+  }, [
+    dispatch,
+    pages,
+    page,
+    searchRes,
+    queryGenre,
+    querySort,
+    genreFromQuery,
+    pageFromQuery,
+    sortFormQuery,
+  ]);
   // console.log(debounced?.data);
   return (
     <>
@@ -297,10 +323,11 @@ const Album = () => {
             </div>
           </aside>
           <div className="album__right">
-              {loading ?
-              <h1>Loading ...</h1> :
-              error ?
-              <h1>Something went wrong</h1> :
+            {loading ? (
+              <h1>Loading ...</h1>
+            ) : error ? (
+              <h1>Something went wrong</h1>
+            ) : (
               <div>
                 <div className="album__box">
                   {data?.map((album) => (
@@ -310,15 +337,24 @@ const Album = () => {
                       className="album__box--child"
                     >
                       <img src={album?.coverPic} alt="coverImage" />
-                      <h3>{album?.name}</h3>
-                      <h5>Total Songs: {album?.noOfSong}</h5>
-                      <h5>Released: {album?.year}</h5>
+                      <h3 className="album__text">{album?.name}</h3>
+                      <h5 className="album__text">
+                        Total Songs: {album?.noOfSong}
+                      </h5>
+                      <h5 className="album__text">Released: {album?.year}</h5>
+                      <h6 className="album__box--genres album__text">
+                        {album?.genres?.map((genre, i) => (
+                          <span key={`${i}-${genre._id}`}>{genre?.title}</span>
+                        ))}
+                      </h6>
                       <div className="album__box--artist">
                         <img
                           src={album?.artists?.[0]?.profilePic}
                           alt="artistImage"
                         />
-                        <h4>{album?.artists?.[0]?.name}</h4>
+                        <h4 className="album__text">
+                          {album?.artists?.[0]?.name}
+                        </h4>
                       </div>
                     </Link>
                   ))}
@@ -329,7 +365,9 @@ const Album = () => {
                   <button
                     onClick={() => pageHandler(page - 1)}
                     disabled={page === 1}
-                  >PREV</button>
+                  >
+                    PREV
+                  </button>
                   {showPages?.map((p) => (
                     <button
                       key={p}
@@ -342,10 +380,12 @@ const Album = () => {
                   <button
                     onClick={() => pageHandler(page + 1)}
                     disabled={page === pages}
-                  >NEXT</button>
+                  >
+                    NEXT
+                  </button>
                 </div>
               </div>
-              }
+            )}
           </div>
         </div>
       </Wrapper>
